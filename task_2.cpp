@@ -315,6 +315,18 @@ public:
         }
         return true; // Probably prime
     }
+
+    ~LinkedList()
+    {
+        Node *temp = head;
+        Node *next = nullptr;
+        while (temp != nullptr)
+        {
+            next = temp->next;
+            delete temp;
+            temp = next;
+        }
+    }
 };
 
 int main()

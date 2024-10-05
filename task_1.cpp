@@ -1,16 +1,3 @@
-// Design and Implement a CPU Process Scheduling Algorithm using a Linked List. Processes
-// will be represented as nodes in the list, and the scheduling algorithm should cycle
-// through the processes, assigning CPU time to each process until all processes have
-// completed their execution.
-// Task:
-//     • Each process should have the following attributes: process_id, execution_time, and remaining_time.
-//     • The scheduler assigns a fixed amount of CPU time to each process in each cycle. After the time is assigned, the process's remaining_time will be reduced by that amount.
-//     • If a process completes its execution (i.e., remaining_time becomes 0), it should be removed from the circular linked list.
-//     • The system should display the state of processes after each cycle, indicating which process is running and its remaining time.
-//     • Show the state of the system after each cycle.
-// Optional Task:
-// Your system should simulate a scenario where a new process can arrive at any time. For example, the program should handle an event that inserts a new process into the list while the scheduler is running.
-
 #include <iostream>
 #include <string>
 using namespace std;
@@ -172,6 +159,22 @@ public:
     {
         cout << "New process arrives: P" << process_id << " (Remaining: " << execution_time << ")\n\n";
         addNode(process_id, execution_time);
+    }
+
+    ~CircularLinkedList()
+    {
+        // If the list is empty, return
+        if (tail == nullptr)
+            return;
+
+        Node *temp = tail->next;
+        Node *next = nullptr;
+        do
+        {
+            next = temp->next;
+            delete temp;
+            temp = next;
+        } while (temp != tail->next);
     }
 };
 
